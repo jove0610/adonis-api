@@ -23,10 +23,14 @@ export default class AuthController {
       expiresIn: '1hour',
       name: username,
     });
-    return token;
+
+    response.json({
+      user,
+      token: token.token,
+    });
   }
 
-  public async user({ auth }: HttpContextContract) {
-    return auth.user;
+  public async user({ auth, response }: HttpContextContract) {
+    response.json(auth.user);
   }
 }
