@@ -28,6 +28,7 @@ Route.group(() => {
 
     Route.group(() => {
       Route.resource('users', 'UserController').apiOnly();
+      Route.delete('users', 'UserController.batchDestroy');
     }).middleware('isAdmin');
   }).middleware('auth');
 }).prefix('api');

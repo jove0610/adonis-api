@@ -40,4 +40,29 @@ export default class UserController {
       response.abort({ message: err.sqlMessage });
     }
   }
+
+  public async batchDestroy({ request, response }: HttpContextContract) {
+    const { id } = request.qs();
+    let deletedUser = 0;
+
+    if (!id) {
+      return response.json({ message: `Deleted ${deletedUser} users.` });
+    }
+
+    const ids = id.split(',');
+    for (let i = 0; i < ids.length; i++) {
+      try {
+        const user = await User.find(ids[i]);
+        await user?.delete();
+
+        if (user !== null) {
+          deletedUser += 1;
+        }
+      } catch (err) {
+        return response.abort({ message: err.sqlMessage });
+      }
+    }
+
+    response.json({ message: `Deleted ${deletedUser} users.` });
+  }
 }
