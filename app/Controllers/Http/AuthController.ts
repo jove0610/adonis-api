@@ -30,6 +30,11 @@ export default class AuthController {
     });
   }
 
+  public async logout({ auth, response }: HttpContextContract) {
+    await auth.use('api').revoke();
+    response.json({ message: 'logout successful' });
+  }
+
   public async user({ auth, response }: HttpContextContract) {
     response.json(auth.user);
   }

@@ -25,6 +25,7 @@ Route.group(() => {
 
   Route.group(() => {
     Route.get('auth/user', 'AuthController.user');
+    Route.post('auth/logout', 'AuthController.logout');
 
     Route.group(() => {
       Route.resource('users', 'UserController').apiOnly();
