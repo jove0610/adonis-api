@@ -25,5 +25,9 @@ Route.group(() => {
 
   Route.group(() => {
     Route.get('auth/user', 'AuthController.user');
+
+    Route.group(() => {
+      // isAdmin routes
+    }).middleware('isAdmin');
   }).middleware('auth');
 }).prefix('api');
