@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import User from 'App/Models/User';
 import Hash from '@ioc:Adonis/Core/Hash';
+import Database from '@ioc:Adonis/Lucid/Database';
 
 export default class AuthController {
   public async login({ auth, request, response }: HttpContextContract) {
@@ -18,9 +19,12 @@ export default class AuthController {
       return response.unauthorized('Invalid credentials');
     }
 
+    // Remove all user's token
+    await Database.rawQuery('delete from api_tokens where name = ?', [username]);
+
     // Generate token
     const token = await auth.use('api').generate(user, {
-      expiresIn: '1hour',
+      expiresIn: '1day',
       name: username,
     });
 
