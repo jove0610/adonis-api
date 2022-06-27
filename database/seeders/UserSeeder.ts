@@ -1,5 +1,4 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder';
-import Hash from '@ioc:Adonis/Core/Hash';
 import User from 'App/Models/User';
 import UserFactory from 'Database/factories/UserFactory';
 
@@ -16,7 +15,7 @@ export default class extends BaseSeeder {
         phone_number: '09958459874',
         email: 'admin.user@adonis-api.com',
         username: 'admin',
-        password: await Hash.make('123456'),
+        password: '123456',
         is_admin: true,
       }
     );
@@ -32,7 +31,7 @@ export default class extends BaseSeeder {
         phone_number: '09668957458',
         email: 'not.admin.user@adonis-api.com',
         username: 'not-admin',
-        password: await Hash.make('123456'),
+        password: '123456',
         is_admin: false,
       }
     );
